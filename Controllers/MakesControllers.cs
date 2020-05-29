@@ -6,12 +6,12 @@ using Vega.Controllers.Resources;
 
 namespace Vega.Controllers
 {
-    public class MakesControllers : Controller
+    public class MakesController : Controller
     {
         private readonly VegaDbContext context;
         private readonly IMapper mapper;
 
-        public MakesControllers(VegaDbContext context, IMapper mapper)
+        public MakesController(VegaDbContext context, IMapper mapper)
         {
             this.mapper = mapper;
             this.context = context;
