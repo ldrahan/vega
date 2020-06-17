@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Vega.Models;
@@ -8,17 +9,21 @@ namespace Vega.Controllers.Resources
     {
         public int Id { get; set; }
 
-        public int ModelId { get; set; }
+        public KeyValuePairResource Model { get; set; }
+
+        public MakeResource Make { get; set; }
 
         public bool IsRegistered { get; set; }
 
         public Contact Contact { get; set; }
 
-        public ICollection<int> Features { get; set; }
+        public DateTime LastUpdate { get; set; }
+
+        public ICollection<KeyValuePairResource> Features { get; set; }
 
         public VehicleResource()
         {
-            Features = new Collection<int>();
+            Features = new Collection<KeyValuePairResource>();
         }
     }
 }
