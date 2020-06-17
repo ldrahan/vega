@@ -6,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using AutoMapper;
 using Vega.Mapping;
 using Vega.Persistance;
+using Vega.Core;
 
 namespace Vega
 {

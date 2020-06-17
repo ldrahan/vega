@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Vega.Models;
+using Vega.Core.Models;
 
 public class VegaDbContext : DbContext
 {
