@@ -1,10 +1,12 @@
+import { AppErrorHandler } from "./app.error-handler";
 import { FeatureService } from "./services/feature.service";
 import { VehicleService } from "./services/vehicle.service";
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
+import { NotifierModule } from "angular-notifier";
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -25,6 +27,23 @@ import { VehicleFormComponent } from "./vehicle-form/vehicle-form.component";
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: "right",
+          distance: 12,
+        },
+        vertical: {
+          position: "top",
+          distance: 12,
+          gap: 10,
+        },
+      },
+      theme: "material",
+      behaviour: {
+        autoHide: 3000,
+      },
+    }),
     FormsModule,
     RouterModule.forRoot([
       { path: "vehicles/new", component: VehicleFormComponent },
@@ -33,7 +52,11 @@ import { VehicleFormComponent } from "./vehicle-form/vehicle-form.component";
       { path: "fetch-data", component: FetchDataComponent },
     ]),
   ],
-  providers: [VehicleService, FeatureService],
+  providers: [
+    VehicleService,
+    FeatureService,
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
