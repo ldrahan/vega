@@ -47,6 +47,7 @@ import { VehicleFormComponent } from "./vehicle-form/vehicle-form.component";
     FormsModule,
     RouterModule.forRoot([
       { path: "vehicles/new", component: VehicleFormComponent },
+      { path: "vehicles/:id", component: VehicleFormComponent },
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "counter", component: CounterComponent },
       { path: "fetch-data", component: FetchDataComponent },
