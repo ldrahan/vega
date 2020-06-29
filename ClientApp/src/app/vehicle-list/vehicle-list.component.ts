@@ -11,7 +11,7 @@ import { VehicleService } from "../services/vehicle.service";
 export class VehicleListComponent implements OnInit {
   vehicles: Vehicle[];
   makes: KeyValuePair[];
-  filter: any = {};
+  query: any = {};
 
   constructor(private vehicleService: VehicleService) {}
 
@@ -28,13 +28,23 @@ export class VehicleListComponent implements OnInit {
   }
 
   resetFilter() {
-    this.filter = {};
+    this.query = {};
     this.populateVehicles();
   }
 
   private populateVehicles() {
-    this.vehicleService.getVehicles(this.filter).subscribe((data) => {
+    this.vehicleService.getVehicles(this.query).subscribe((data) => {
       this.vehicles = <Vehicle[]>data;
     });
+  }
+
+  sortBy(columnName) {
+    if (this.query.sortBy === columnName) {
+      this.query.isSortAscending = false;
+    } else {
+      this.query.sortBy = columnName;
+      this.query.isSortAscending = true;
+    }
+    this.populateVehicles();
   }
 }

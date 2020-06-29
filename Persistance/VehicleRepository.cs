@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Vega.Core.Models;
+using Vega.Extensions;
 
 namespace Vega.Core
 {
@@ -19,7 +22,7 @@ namespace Vega.Core
         {
             if (!includeRelated)
                 return await vegaDbContext.Vehicles.FindAsync(id);
-            return Vehicles(new Filter()).SingleOrDefault(v => v.Id == id);
+            return Vehicles(new VehicleQuery()).SingleOrDefault(v => v.Id == id);
         }
 
         public void Remove(Vehicle vehicle)
@@ -32,23 +35,32 @@ namespace Vega.Core
             vegaDbContext.Add(vehicle);
         }
 
-        public IEnumerable<Vehicle> GetVehicles(Filter filter)
+        public IEnumerable<Vehicle> GetVehicles(VehicleQuery vehicleQuery)
         {
-            return Vehicles(filter);
+            return Vehicles(vehicleQuery);
         }
 
-        private IEnumerable<Vehicle> Vehicles(Filter filter)
+        private IEnumerable<Vehicle> Vehicles(VehicleQuery vehicleQuery)
         {
-            var vehicles = vegaDbContext.Vehicles
+            var query = vegaDbContext.Vehicles
                   .Include(v => v.Features)
                   .ThenInclude(vf => vf.Feature)
                   .Include(v => v.Model)
-                  .Include(v => v.Model.Make);
+                  .Include(v => v.Model.Make).AsQueryable();
 
-            if (filter.MakeId.HasValue)
-                return vehicles.Where(v => v.Model.MakeId == filter.MakeId.Value);
-            else
-                return vehicles;
+            if (vehicleQuery.MakeId.HasValue)
+                query = query.Where(v => v.Model.MakeId == vehicleQuery.MakeId.Value);
+
+            var columnsMapping = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+            {
+                ["make"] = v => v.Model.Make.Name,
+                ["model"] = v => v.Model.Name,
+                ["contactName"] = v => v.Contact.Name,
+                ["id"] = v => v.Id,
+            };
+
+            query = query.ApplyOrdering(vehicleQuery, columnsMapping);
+            return query;
         }
     }
 }
