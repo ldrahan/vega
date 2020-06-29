@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Vega.Controllers.Resources;
 using Vega.Core;
 using Vega.Core.Models;
@@ -82,6 +82,15 @@ namespace Vega.Controllers
                 var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
                 return Ok(vehicleResource);
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetVehicles(FilterResource filterResource)
+        {
+            var filter = mapper.Map<FilterResource, Filter>(filterResource);
+            var vehicles = vehicleRepository.GetVehicles(filter);
+            var vehiclesResource = mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
+            return Ok(vehiclesResource);
         }
     }
 }

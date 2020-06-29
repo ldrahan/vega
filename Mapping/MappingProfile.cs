@@ -11,6 +11,7 @@ namespace Vega.Mapping
         public MappingProfile()
         {
             //Domain to API Resource
+            CreateMap<Filter, FilterResource>();
             CreateMap<Make, MakeResource>();
             CreateMap<Make, KeyValuePairResource>();
             CreateMap<Model, KeyValuePairResource>();
@@ -26,6 +27,7 @@ namespace Vega.Mapping
             })));
 
             //Api Resource to Domain
+            CreateMap<FilterResource, Filter>();
             CreateMap<SaveVehicleResource, Vehicle>()
             .ForMember(v => v.Id, opt => opt.Ignore())
             .ForMember(v => v.Features, opt => opt.Ignore())
