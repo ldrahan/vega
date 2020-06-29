@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class VehicleService {
+  private readonly vehiclesEndpoint = "/api/vehicles";
   constructor(private httpClient: HttpClient) {}
 
   getMakes() {
@@ -13,22 +14,39 @@ export class VehicleService {
   }
 
   getVehicle(id) {
-    return this.httpClient.get(`/api/vehicles/${id}`);
+    return this.httpClient.get(`${this.vehiclesEndpoint}/${id}`);
   }
 
   create(vehicle) {
-    return this.httpClient.post("/api/vehicles", vehicle);
+    return this.httpClient.post(this.vehiclesEndpoint, vehicle);
   }
 
   update(vehicle: SaveVehicle) {
-    return this.httpClient.put(`/api/vehicles/${vehicle.id}`, vehicle);
+    return this.httpClient.put(
+      `${this.vehiclesEndpoint}/${vehicle.id}`,
+      vehicle
+    );
   }
 
   delete(id) {
-    return this.httpClient.delete(`/api/vehicles/${id}`);
+    return this.httpClient.delete(`${this.vehiclesEndpoint}/${id}`);
   }
 
-  getVehicles() {
-    return this.httpClient.get("/api/vehicles");
+  getVehicles(filter) {
+    let queryString = this.toQueryString(filter);
+    return this.httpClient.get(`${this.vehiclesEndpoint}?${queryString}`);
+  }
+
+  private toQueryString(obj) {
+    var parts = [];
+    for (var property in obj) {
+      var value = obj[property];
+      if (value != null && value != undefined) {
+        parts.push(
+          `${encodeURIComponent(property)}=${encodeURIComponent(value)}`
+        );
+      }
+    }
+    return parts.join("&");
   }
 }
