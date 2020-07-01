@@ -1,3 +1,4 @@
+import { PaginationComponent } from "./shared/pagination.component";
 import { AppErrorHandler } from "./app.error-handler";
 import { FeatureService } from "./services/feature.service";
 import { VehicleService } from "./services/vehicle.service";
@@ -25,6 +26,7 @@ import { VehicleListComponent } from "./vehicle-list/vehicle-list.component";
     FetchDataComponent,
     VehicleFormComponent,
     VehicleListComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

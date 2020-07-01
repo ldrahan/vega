@@ -22,7 +22,8 @@ namespace Vega.Core
         {
             if (!includeRelated)
                 return await vegaDbContext.Vehicles.FindAsync(id);
-            return Vehicles(new VehicleQuery()).SingleOrDefault(v => v.Id == id);
+            var vehicles = await VehiclesAsync(new VehicleQuery());
+            return vehicles.Items.SingleOrDefault(v => v.Id == id);
         }
 
         public void Remove(Vehicle vehicle)
@@ -35,13 +36,14 @@ namespace Vega.Core
             vegaDbContext.Add(vehicle);
         }
 
-        public IEnumerable<Vehicle> GetVehicles(VehicleQuery vehicleQuery)
+        public async Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
         {
-            return Vehicles(vehicleQuery);
+            return await VehiclesAsync(vehicleQuery);
         }
 
-        private IEnumerable<Vehicle> Vehicles(VehicleQuery vehicleQuery)
+        private async Task<QueryResult<Vehicle>> VehiclesAsync(VehicleQuery vehicleQuery)
         {
+            var result = new QueryResult<Vehicle>();
             var query = vegaDbContext.Vehicles
                   .Include(v => v.Features)
                   .ThenInclude(vf => vf.Feature)
@@ -58,11 +60,12 @@ namespace Vega.Core
                 ["contactName"] = v => v.Contact.Name,
                 ["id"] = v => v.Id,
             };
-
+            result.TotalItems = await query.CountAsync();
             query = query.ApplyOrdering(vehicleQuery, columnsMapping);
 
             query = query.ApplyPaging(vehicleQuery);
-            return query;
+            result.Items = query;
+            return result;
         }
     }
 }

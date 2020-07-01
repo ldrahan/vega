@@ -1,5 +1,4 @@
 import { KeyValuePair } from "./../models/keyValuePair";
-import { Vehicle } from "./../models/vehicle";
 import { Component, OnInit } from "@angular/core";
 import { VehicleService } from "../services/vehicle.service";
 
@@ -9,9 +8,12 @@ import { VehicleService } from "../services/vehicle.service";
   styleUrls: ["./vehicle-list.component.css"],
 })
 export class VehicleListComponent implements OnInit {
-  vehicles: Vehicle[];
+  queryResult: any = {
+    totalItems: 0,
+    items: [],
+  };
   makes: KeyValuePair[];
-  query: any = {};
+  query: any = { pageSize: 4 };
   columns = [
     { title: "Id" },
     { title: "Make", key: "make", isSortable: true },
@@ -40,8 +42,8 @@ export class VehicleListComponent implements OnInit {
   }
 
   private populateVehicles() {
-    this.vehicleService.getVehicles(this.query).subscribe((data) => {
-      this.vehicles = <Vehicle[]>data;
+    this.vehicleService.getVehicles(this.query).subscribe((result) => {
+      this.queryResult = result;
     });
   }
 
@@ -55,5 +57,9 @@ export class VehicleListComponent implements OnInit {
       }
       this.populateVehicles();
     }
+  }
+  onPageChange(page) {
+    this.query.page = page;
+    this.populateVehicles();
   }
 }
