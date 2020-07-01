@@ -60,6 +60,8 @@ namespace Vega.Core
             };
 
             query = query.ApplyOrdering(vehicleQuery, columnsMapping);
+
+            query = query.ApplyPaging(vehicleQuery);
             return query;
         }
     }

@@ -16,11 +16,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th (click)="sortBy('make')" scope="col">Make</th>
-      <th (click)="sortBy('model')" scope="col">Model</th>
-      <th (click)="sortBy('contactName')" scope="col">Contact Name</th>
-      <th scope="col"></th>
+      <th *ngFor="let column of columns" (click)="sortBy(column.key)">{{column.title}}
+        <i *ngIf="query.sortBy===column.key && column.isSortable" class="fa" [class.fa-sort-asc]="query.isSortAscending"
+          [class.fa-sort-desc]="!query.isSortAscending"></i>
+      </th>
     </tr>
   </thead>
   <tbody>
