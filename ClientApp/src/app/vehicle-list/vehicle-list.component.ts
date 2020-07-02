@@ -33,11 +33,12 @@ export class VehicleListComponent implements OnInit {
   }
 
   onFilterChange() {
+    this.query.page = 1;
     this.populateVehicles();
   }
 
   resetFilter() {
-    this.query = {};
+    this.query = { pageSize: 4 };
     this.populateVehicles();
   }
 
