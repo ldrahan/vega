@@ -16,6 +16,7 @@ import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { VehicleFormComponent } from "./vehicle-form/vehicle-form.component";
 import { VehicleListComponent } from "./vehicle-list/vehicle-list.component";
+import { ViewVehicleComponent } from "./view-vehicle/view-vehicle.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { VehicleListComponent } from "./vehicle-list/vehicle-list.component";
     VehicleFormComponent,
     VehicleListComponent,
     PaginationComponent,
+    ViewVehicleComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -51,7 +53,8 @@ import { VehicleListComponent } from "./vehicle-list/vehicle-list.component";
     FormsModule,
     RouterModule.forRoot([
       { path: "vehicles/new", component: VehicleFormComponent },
-      { path: "vehicles/:id", component: VehicleFormComponent },
+      //{ path: "vehicles/:id", component: VehicleFormComponent },
+      { path: "vehicles/:id", component: ViewVehicleComponent },
       { path: "vehicles", component: VehicleListComponent },
       { path: "", redirectTo: "/vehicles", pathMatch: "full" },
       { path: "counter", component: CounterComponent },

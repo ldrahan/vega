@@ -1,0 +1,63 @@
+<h2>View vehicle {{vehicle.id}}</h2>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+      aria-controls="pills-home" aria-selected="true">Vehicle</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+      aria-controls="pills-profile" aria-selected="false">Photos</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <form>
+      <div class="form-group">
+        <label for="make" class="font-weight-bold">Make</label>
+        <input type="text" id="make" class="form-control" [(ngModel)]="vehicle.make.name" name="make" readonly
+          class="form-control-plaintext">
+      </div>
+      <div class="form-group">
+        <label for="model" class="font-weight-bold">Model</label>
+        <input type="text" id="model" class="form-control" [(ngModel)]="vehicle.model.name" name="model" readonly
+          class="form-control-plaintext">
+      </div>
+      <p class="font-weight-bold">Is this vehicle registered?</p>
+      <div class="radio">
+        <label for="registered">
+          <input type="radio" id="registered" name="isRegistered" [value]="true" [(ngModel)]="vehicle.isRegistered"
+            disabled>Yes</label>
+      </div>
+      <div class="radio">
+        <label for="notRegistered">
+          <input type="radio" id="notRegistered" name="isRegistered" [value]="false" [(ngModel)]="vehicle.isRegistered"
+            disabled>No</label>
+      </div>
+      <p class="font-weight-bold">Features</p>
+      <div *ngFor="let feature of features" class="checkbox">
+        <label for="feature{{feature.id}}">
+          <input type="checkbox" id="feature{{feature.id}}" [checked]="vehicle.features.includes(feature.id)" disabled>
+          {{feature.name}}
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="contactName" class="font-weight-bold">Name</label>
+        <input id="contactName" type="text" class="form-control" [(ngModel)]="vehicle.contact.name" name="contactName"
+          readonly class="form-control-plaintext">
+      </div>
+      <div class="form-group">
+        <label for="contactPhone" class="font-weight-bold">Phone</label>
+        <input id="contactPhone" type="text" class="form-control" [(ngModel)]="vehicle.contact.phone"
+          name="contactPhone" readonly class="form-control-plaintext">
+      </div>
+      <div class="form-group">
+        <label for="contactEmail" class="font-weight-bold">Email</label>
+        <input type="text" id="contactEmail" class="form-control" [(ngModel)]="vehicle.contact.email"
+          name="contactEmail" readonly class="form-control-plaintext">
+      </div>
+      <button class="btn btn-primary">Edit</button>
+      <button class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+    </form>
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+</div>
