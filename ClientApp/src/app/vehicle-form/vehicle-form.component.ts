@@ -86,16 +86,10 @@ export class VehicleFormComponent implements OnInit {
         this.notifier.notify("success", "The vehicle was successfully updated");
       });
     else
-      this.vehicleService.create(this.vehicle).subscribe((data) => {
+      this.vehicleService.create(this.vehicle).subscribe((data: Vehicle) => {
         this.notifier.notify("success", "The vehicle was successfully created");
+        this.router.navigate([`/vehicles/${data.id}`]);
       });
-  }
-  delete() {
-    if (confirm("Are you sure?")) {
-      this.vehicleService.delete(this.vehicle.id).subscribe((data) => {
-        this.router.navigate(["/home"]);
-      });
-    }
   }
 
   private setVehicle(v: Vehicle) {

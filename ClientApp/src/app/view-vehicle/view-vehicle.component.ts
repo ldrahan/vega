@@ -2,7 +2,7 @@ import { FeatureService } from "./../services/feature.service";
 import { VehicleService } from "./../services/vehicle.service";
 import { Vehicle } from "./../models/vehicle";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "underscore";
 
 @Component({
@@ -28,7 +28,8 @@ export class ViewVehicleComponent implements OnInit {
   constructor(
     private featureService: FeatureService,
     private vehicleService: VehicleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     route.params.subscribe((p) => {
       this.vehicle.id = +p["id"];
@@ -44,5 +45,13 @@ export class ViewVehicleComponent implements OnInit {
       this.vehicle = <Vehicle>v;
       this.vehicle.features = _.pluck(v.features, "id");
     });
+  }
+
+  delete() {
+    if (confirm("Are you sure?")) {
+      this.vehicleService.delete(this.vehicle.id).subscribe((data) => {
+        this.router.navigate(["/"]);
+      });
+    }
   }
 }

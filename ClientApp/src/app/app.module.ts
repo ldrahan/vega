@@ -53,7 +53,7 @@ import { ViewVehicleComponent } from "./view-vehicle/view-vehicle.component";
     FormsModule,
     RouterModule.forRoot([
       { path: "vehicles/new", component: VehicleFormComponent },
-      //{ path: "vehicles/:id", component: VehicleFormComponent },
+      { path: "vehicles/edit/:id", component: VehicleFormComponent },
       { path: "vehicles/:id", component: ViewVehicleComponent },
       { path: "vehicles", component: VehicleListComponent },
       { path: "", redirectTo: "/vehicles", pathMatch: "full" },

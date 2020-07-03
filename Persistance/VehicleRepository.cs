@@ -22,8 +22,8 @@ namespace Vega.Core
         {
             if (!includeRelated)
                 return await vegaDbContext.Vehicles.FindAsync(id);
-            var vehicles = await VehiclesAsync(new VehicleQuery());
-            return vehicles.Items.SingleOrDefault(v => v.Id == id);
+            var vehicles = Vehicles(new VehicleQuery());
+            return vehicles.SingleOrDefault(v => v.Id == id);
         }
 
         public void Remove(Vehicle vehicle)
@@ -38,18 +38,8 @@ namespace Vega.Core
 
         public async Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
         {
-            return await VehiclesAsync(vehicleQuery);
-        }
-
-        private async Task<QueryResult<Vehicle>> VehiclesAsync(VehicleQuery vehicleQuery)
-        {
             var result = new QueryResult<Vehicle>();
-            var query = vegaDbContext.Vehicles
-                  .Include(v => v.Features)
-                  .ThenInclude(vf => vf.Feature)
-                  .Include(v => v.Model)
-                  .Include(v => v.Model.Make).AsQueryable();
-
+            var query = Vehicles(vehicleQuery);
             if (vehicleQuery.MakeId.HasValue)
                 query = query.Where(v => v.Model.MakeId == vehicleQuery.MakeId.Value);
 
@@ -66,6 +56,16 @@ namespace Vega.Core
             query = query.ApplyPaging(vehicleQuery);
             result.Items = query;
             return result;
+        }
+
+        private IQueryable<Vehicle> Vehicles(VehicleQuery vehicleQuery)
+        {
+            var query = vegaDbContext.Vehicles
+                  .Include(v => v.Features)
+                  .ThenInclude(vf => vf.Feature)
+                  .Include(v => v.Model)
+                  .Include(v => v.Model.Make).AsQueryable();
+            return query;
         }
     }
 }
