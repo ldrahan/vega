@@ -10,7 +10,7 @@ namespace Vega.Core.Models
 
         public bool IsSupported(string fileName)
         {
-            return AcceptedFileTypes.Any(f => Path.GetExtension(file.FileName).ToLower() == f);
+            return AcceptedFileTypes.Any(f => Path.GetExtension(fileName).ToLower() == f);
         }
     }
 }
