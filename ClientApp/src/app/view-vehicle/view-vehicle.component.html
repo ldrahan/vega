@@ -1,39 +1,39 @@
-<h2>View vehicle {{vehicle.id}}</h2>
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-vehicle-tab" data-toggle="pill" href="#pills-vehicle" role="tab"
-      aria-controls="pills-vehicle" aria-selected="true">Vehicle</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-photos-tab" data-toggle="pill" href="#pills-photos" role="tab"
-      aria-controls="pills-photos" aria-selected="false">Photos</a>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-vehicle" role="tabpanel" aria-labelledby="pills-vehicle-tab">
-    <p class="font-weight-bold">Basic info</p>
-    <ul>
-      <li>Make: {{vehicle.make.name}}</li>
-      <li>Model: {{vehicle.model.name}}</li>
-      <li>Registered: {{vehicle.isRegistered?"Yes":"No"}}</li>
-    </ul>
-    <p class="font-weight-bold">Features</p>
-    <ul>
-      <div *ngFor="let feature of features">
-        <li *ngIf="vehicle.features.includes(feature.id)">
-          {{feature.name}}
-        </li>
-      </div>
-    </ul>
-    <p class="font-weight-bold">Contact info</p>
-    <ul>
-      <li>Contact name: {{vehicle.contact.name}}</li>
-      <li>Contact email: {{vehicle.contact.email}}</li>
-      <li>Contact phone: {{vehicle.contact.phone}}</li>
-    </ul>
-    <a routerLink="/vehicles/edit/{{vehicle.id}}"><button class="btn btn-primary mr-2">Edit</button></a>
-    <button class="btn btn-danger mr-2" type="button" (click)="delete()">Delete</button>
-    <a routerLink="/vehicles"><button class="btn btn-secondary mr-2">View all vehicles</button></a>
-  </div>
-  <div class="tab-pane fade" id="pills-photos" role="tabpanel" aria-labelledby="pills-photos-tab">...</div>
+<div class="container">
+  <h2>View vehicle {{vehicle.id}}</h2>
+  <ngb-tabset [destroyOnHide]="false">
+    <ngb-tab title="Vehicle">
+      <ng-template ngbTabContent>
+        <p class="font-weight-bold">Basic info</p>
+        <ul>
+          <li>Make: {{vehicle.make.name}}</li>
+          <li>Model: {{vehicle.model.name}}</li>
+          <li>Registered: {{vehicle.isRegistered?"Yes":"No"}}</li>
+        </ul>
+        <p class="font-weight-bold">Features</p>
+        <ul>
+          <div *ngFor="let feature of features">
+            <li *ngIf="vehicle.features.includes(feature.id)">
+              {{feature.name}}
+            </li>
+          </div>
+        </ul>
+        <p class="font-weight-bold">Contact info</p>
+        <ul>
+          <li>Contact name: {{vehicle.contact.name}}</li>
+          <li>Contact email: {{vehicle.contact.email}}</li>
+          <li>Contact phone: {{vehicle.contact.phone}}</li>
+        </ul>
+        <a routerLink="/vehicles/edit/{{vehicle.id}}"><button class="btn btn-primary mr-2">Edit</button></a>
+        <button class="btn btn-danger mr-2" type="button" (click)="delete()">Delete</button>
+        <a routerLink="/vehicles"><button class="btn btn-secondary mr-2">View all vehicles</button></a>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>Photos</ng-template>
+      <ng-template ngbTabContent>
+        <input type="file" (change)="uploadPhoto()">
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
 </div>
