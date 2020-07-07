@@ -8,7 +8,8 @@ export class AppErrorHandler implements ErrorHandler {
   ) {}
   handleError(error: any): void {
     this.ngZone.run(() => {
-      this.notifier.notify("error", error.message);
+      this.notifier.notify("error", error.error);
     });
+    throw error;
   }
 }

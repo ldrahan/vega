@@ -32,7 +32,13 @@
     <ngb-tab>
       <ng-template ngbTabTitle>Photos</ng-template>
       <ng-template ngbTabContent>
-        <input type="file" (change)="uploadPhoto()">
+        <input type="file" (change)="uploadPhoto()" #fileInput>
+        <div class="progress" *ngIf="progress">
+          <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
+        </div>
+        <div class="mx-auto">
+          <img *ngFor="let photo of photos" src="uploads/{{photo.fileName}}" class="img-thumbnail">
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

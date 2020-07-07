@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -60,6 +61,14 @@ namespace Vega.Controllers
             vehicle.Photos.Add(photo);
             await unitOfWork.CompleteAsync();
             var result = mapper.Map<Photo, PhotoResource>(photo);
+            return Ok(result);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetPhotosAsync(int vehicleId)
+        {
+            var photos = await repository.GetPhotos(vehicleId);
+            var result = mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
             return Ok(result);
         }
     }

@@ -58,6 +58,12 @@ namespace Vega.Core
             return result;
         }
 
+        public async Task<IEnumerable<Photo>> GetPhotos(int vehicleId)
+        {
+            var vehicle = await vegaDbContext.Vehicles.Include(v => v.Photos).AsQueryable().FirstOrDefaultAsync(v => v.Id == vehicleId);
+            return vehicle.Photos;
+        }
+
         private IQueryable<Vehicle> Vehicles(VehicleQuery vehicleQuery)
         {
             var query = vegaDbContext.Vehicles

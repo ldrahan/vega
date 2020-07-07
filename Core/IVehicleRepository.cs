@@ -10,5 +10,6 @@ namespace Vega.Core
         void Remove(Vehicle vehicle);
         void Add(Vehicle vehicle);
         Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery filter);
+        Task<IEnumerable<Photo>> GetPhotos(int vehicleId);
     }
 }

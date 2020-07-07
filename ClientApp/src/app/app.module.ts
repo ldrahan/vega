@@ -1,3 +1,4 @@
+import { PhotoService } from "./services/photo.service";
 import { PaginationComponent } from "./shared/pagination.component";
 import { AppErrorHandler } from "./app.error-handler";
 import { FeatureService } from "./services/feature.service";
@@ -5,7 +6,7 @@ import { VehicleService } from "./services/vehicle.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, ErrorHandler } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { NotifierModule } from "angular-notifier";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -65,6 +66,7 @@ import { ViewVehicleComponent } from "./view-vehicle/view-vehicle.component";
   providers: [
     VehicleService,
     FeatureService,
+    PhotoService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
   ],
   bootstrap: [AppComponent],
