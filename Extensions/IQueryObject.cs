@@ -2,8 +2,8 @@ namespace Vega.Extensions
 {
     public interface IQueryObject
     {
-        string SortBy { get; set; }
-        bool IsSortAscending { get; set; }
+        string SortBy { get; }
+        bool IsSortAscending { get; }
         int PageSize { get; set; }
         int Page { get; set; }
     }

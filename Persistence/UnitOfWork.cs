@@ -5,16 +5,16 @@ namespace Vega.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly VegaDbContext vegaDbContext;
+        private readonly VegaDbContext _vegaDbContext;
 
         public UnitOfWork(VegaDbContext vegaDbContext)
         {
-            this.vegaDbContext = vegaDbContext;
+            _vegaDbContext = vegaDbContext;
         }
 
         public async Task CompleteAsync()
         {
-            await vegaDbContext.SaveChangesAsync();
+            await _vegaDbContext.SaveChangesAsync();
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Vega.Mapping;
-using Vega.Persistance;
+using Vega.Persistence;
 using Vega.Core;
 using Vega.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
