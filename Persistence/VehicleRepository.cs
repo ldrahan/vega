@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Vega.Core;
 using Vega.Core.Models;
 using Vega.Extensions;
 
-namespace Vega.Core
+namespace Vega.Persistence
 {
     public class VehicleRepository : IVehicleRepository
     {

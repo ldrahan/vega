@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Vega.Core;
 
-namespace Vega.Persistance
+namespace Vega.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
