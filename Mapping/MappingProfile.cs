@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Vega.Controllers.Resources;
@@ -40,7 +39,7 @@ namespace Vega.Mapping
                 .ForEach(i => v.Features.Remove(i));
 
                 //add new features
-                vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id))
+                vr.Features.Where(id => v.Features.All(f => f.FeatureId != id))
                 .Select(i => new VehicleFeature { FeatureId = i }).ToList()
                 .ForEach(f => v.Features.Add(f));
             });

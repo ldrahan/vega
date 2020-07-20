@@ -17,11 +17,17 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }" *ngIf="auth.loggedIn">
             <a class="nav-link text-dark" [routerLink]="['/vehicles/new']">New vehicle</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/vehicles']">Vehicles</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" (click)="auth.login()" *ngIf="!auth.loggedIn" style="cursor: pointer;">Log
+              In</a>
+            <a class="nav-link text-dark" (click)="auth.logout()" *ngIf="auth.loggedIn" style="cursor: pointer;">Log
+              Out</a>
           </li>
         </ul>
       </div>

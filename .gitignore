@@ -230,3 +230,10 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 wwwroot/uploads/*
+.idea/.idea.Vega.dir/riderModule.iml
+.idea/.idea.Vega.dir/.idea/.idea.Vega.dir.iml
+.idea/.idea.Vega.dir/.idea/dataSources.xml
+.idea/.idea.Vega.dir/.idea/encodings.xml
+.idea/.idea.Vega.dir/.idea/indexLayout.xml
+.idea/.idea.Vega.dir/.idea/misc.xml
+.idea/.idea.Vega.dir/.idea/vcs.xml
