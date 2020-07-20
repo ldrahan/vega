@@ -62,10 +62,10 @@ import {ViewVehicleComponent} from "./view-vehicle/view-vehicle.component";
       {path: "counter", component: CounterComponent},
       {path: "fetch-data", component: FetchDataComponent},
     ],
-    //   {
-    //   useHash: true,
-    //   initialNavigation: false
-    // }
+      {
+      useHash: true,
+      initialNavigation: false
+    }
     ),
   ],
   providers: [
